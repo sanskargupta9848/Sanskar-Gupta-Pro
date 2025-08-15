@@ -1,265 +1,225 @@
-# Stock Market AI  - Core Data Engineering + RAG Pipeline
-Intelligent Stock Market Data Pipeline with RAG using Medallion Architecture in Databricks
-## Overview
+Stock Market AI – Core Data Engineering & RAG Pipeline
 
-This project implements a comprehensive stock market data pipeline using the Medallion Architecture (Bronze-Silver-Gold) in Databricks, enhanced with Retrieval-Augmented Generation (RAG) for intelligent analysis and insights. The system ingests historical stock data, real-time and historical news, market trends, and major holders' data, all critical factors influencing stock performance process this through multiple layers of refinement, and provides natural language querying capabilities for financial analysis.
+An Intelligent Financial Data Pipeline with Medallion Architecture & RAG in Databricks
+
+Overview
+
+This project delivers a fully integrated stock market data pipeline leveraging the Medallion Architecture (Bronze → Silver → Gold) in Databricks, combined with a Retrieval-Augmented Generation (RAG) system for AI-driven financial insights.
+
+It ingests and processes:
+
+Historical stock prices
+
+Real-time and historical market news
+
+Broader market trends
+
+Institutional holders data
+
+Data flows through multiple transformation layers, culminating in a business-ready analytics layer. A Streamlit-based UI chatbot enables natural language queries to perform advanced financial analysis.
+
+UI Overview
+
+The Streamlit interface offers an intuitive, chat-like experience for querying market data.
+
+Initial View (No Prompt) – Clean application layout before any input.
 
 
-![image](https://github.com/user-attachments/assets/1bc51bf7-a30b-4d70-8f6f-45a5d320e2e7)
+Prompt Submission – Chat overlay appears after a user query.
 
-## UI Overview
 
-Below are screenshots that show various stages of interaction with the UI:
+Prompt Only (Pending Response) – User query in chatbox awaiting model reply.
 
-1. **UI Page (No Input or Response)**  
-   This displays the application layout before any user prompts or model responses have been entered.  
-   ![UI Page without prompts and responses](https://github.com/user-attachments/assets/caed6ed4-d8bc-4c16-8815-f6f079506c0f)
 
-2. **Chat Overlay with Message**  
-   Demonstrates how the chat overlay appears after the user has submitted a prompt.  
-   ![Chat overlay with message](https://github.com/user-attachments/assets/f9a52fe8-4588-425c-87c0-ed226f0ef211)
+Prompt & Response – Model-generated insights displayed alongside user query.
 
-3. **UI Page (Only Prompt in Chatbox)**  
-   Showcases the interface after the user has provided a prompt but before the model’s response appears.  
-   ![UI page with only prompt](https://github.com/user-attachments/assets/90323d38-c883-4dad-800d-b6a256a8375e)
 
-4. **UI Page (Prompt and Model Response)**  
-   Highlights the final interface when both the user’s prompt and the model’s response are displayed.  
-   ![UI page with prompt and response](https://github.com/user-attachments/assets/39a0ba32-fbb0-43ff-8964-649efc81bec8)
+Getting Started
 
---------------------------------------------------------------------------------
+Install Requirements
 
-## Getting Started
+pip install streamlit
 
-1. **Install Dependencies**:  
-   Ensure you have Python 3.8+ installed. Install dependencies in a virtual environment:  
-   ```
-   pip install streamlit
-   ```
-   
-2. **Run the Application**:  
-   In your terminal or command prompt, run:
-   ```
-   streamlit run app.py
-   ```
-   This will open a local Streamlit server and show the UI in your browser.
 
---------------------------------------------------------------------------------
+Run the App
 
-##  Architecture
+streamlit run app.py
 
-```
-Stock APIs → Bronze Layer → Silver Layer → Gold Layer → Vector DB → RAG System → StreamlitUI chatbot
+
+This launches the Streamlit server locally and opens the UI in your browser.
+
+System Architecture
+Stock APIs → Bronze Layer → Silver Layer → Gold Layer → Vector DB → RAG → Streamlit UI Chatbot
     ↓           ↓             ↓            ↓           ↓         ↓            ↓
 yfinance    Raw Data    Cleaned Data   Business    FAISS    Gemini AI   Chatbot Output
 Finnhub     Storage     Validation     Ready       Vector   LangChain   
-```
 
-##  Tech Stack
+Technology Stack
+Data Engineering
 
-### Data Engineering
-- **Platform**: Databricks (Apache Spark)
-- **Orchestration**: Databricks Workflows
-- **Data Lake**: Delta Lake with ACID transactions
-- **Data Sources**: 
-  - Yahoo Finance (yfinance API)
-  - Finnhub API (financial news)
-- **Programming**: PySpark, Python
-- **Storage**: Unity Catalog with medallion architecture
-- **Scheduling**: Automated workflow scheduling
+Platform: Databricks (Apache Spark)
 
-### RAG Components
-- **Embeddings**: Google Generative AI Embeddings (models/embedding-001)
-- **Vector Database**: FAISS (Facebook AI Similarity Search)
-- **LLM**: Google Gemini 2.0 Flash
-- **Framework**: LangChain for orchestration
-- **Text Processing**: RecursiveCharacterTextSplitter for optimal chunking
-- **Financial Analysis**: Custom financial metrics and indicators
+Data Lake: Delta Lake with ACID transactions
 
+Catalog: Unity Catalog with Medallion architecture
 
-##  Project Structure
+Sources:
 
-```
-├── notebooks/                          # Databricks notebooks
-│   ├── bronze_layer/
-│   │   ├── Stocks_ai_historical_bronze.py      # Historical data from yfinance
-│   │   └── stocks_news_bronze_layer.py         # News data from Finnhub API
-│   ├── silver_layer/
-│   │   └── combined_silver_layer_historical+news.py  # Data cleansing & standardization
-│   ├── gold_layer/
-│   │   └── Stocks_ai_gold_layer.py             # Business-ready analytics tables
-│   ├── rag_implementation/
-│   │   ├── stock_market_rag_basic.py           # Current RAG implementation
-│   │   └── stock_market_rag_enhanced.py        # Enhanced production-ready RAG
-│   └── analytics/
-│       └── financial_dashboard.py              # Interactive analytics dashboard
-├── data_catalog/                       # Databricks Unity Catalog structure
-│   └── stocks_ai/
-│       ├── stocks_name_ticker/
-│       │   └── stock_names                      # Master ticker & company names
-│       ├── stocks_history_data/
-│       │   ├── stock_history_bronze_layer       # Raw OHLCV data
-│       │   └── stock_history_silver_layer       # Cleaned OHLCV data
-│       ├── stocks_news_data/
-│       │   ├── stock_news_bronze_layer          # Raw news summaries
-│       │   └── stock_news_silver_layer          # Processed news data
-│       ├── stocks_holders_data/
-│       │   └── stock_institutional_holders      # Institutional holder data
-│       └── stocks_GOLD_LAYER/
-│           ├── Stocks_news_historical_RAG       # Combined analytics table
-│           └── Stocks_holders_RAG               # Enriched holders data
-├── src/                               # Utility functions and classes
-│   ├── data_ingestion/
-│   ├── data_processing/
-│   ├── rag_components/
-│   └── financial_analysis/
-├── config/                            # Configuration files
+Yahoo Finance (yfinance API)
+
+Finnhub (market news API)
+
+Orchestration: Databricks Workflows
+
+Processing: PySpark, Python
+
+Scheduling: Automated workflows
+
+RAG (Retrieval-Augmented Generation)
+
+Embeddings: Google Generative AI (models/embedding-001)
+
+Vector Database: FAISS (Facebook AI Similarity Search)
+
+LLM: Google Gemini 2.0 Flash
+
+Framework: LangChain
+
+Text Chunking: RecursiveCharacterTextSplitter (optimized token size)
+
+Custom Analysis: Proprietary financial metrics & indicators
+
+Repository Structure
+├── notebooks/
+│   ├── bronze_layer/                  # Raw data ingestion
+│   ├── silver_layer/                  # Data cleaning & standardization
+│   ├── gold_layer/                    # Business-ready analytics
+│   ├── rag_implementation/            # AI-powered querying
+│   └── analytics/                     # Interactive dashboards
+├── data_catalog/                      # Unity Catalog tables
+├── src/                               # Utility functions & processing scripts
+├── config/                            # Config files
 ├── tests/                             # Unit tests
 └── docs/                              # Documentation
-```
 
-##  Data Pipeline Implementation
+Data Pipeline
+1. Bronze Layer – Raw Data Ingestion
 
-![image](https://github.com/user-attachments/assets/f1ca59cd-8ef3-49ef-9be6-8cd0006722eb)
+Historical Stock Data (Stocks_ai_historical_bronze)
 
-### Bronze Layer - Raw Data Ingestion
+Source: Yahoo Finance (yfinance)
 
-#### 1. Historical Stock Data (`Stocks_ai_historical_bronze`)
+Features: Incremental loading, multi-ticker processing, date-based logic, schema flattening
 
-**Data Source**: Yahoo Finance via yfinance API
-**Table**: `stocks_ai.stocks_history_data.stock_history_bronze_layer`
+News Data (stocks_news_bronze_layer)
 
-**Key Features:**
-- **Incremental Loading**: Automatically detects existing data and loads only new records
-- **Date Logic**: Initial load (180 days) vs incremental load (since last date)
-- **Multi-ticker Processing**: Batch processing of all tickers from master table
-- **Schema Standardization**: Flattens multi-index columns from yfinance
+Source: Finnhub API
 
-#### 2. News Data (`stocks_news_bronze_layer`)
+Features: News summaries, API rate limiting, incremental updates, basic filtering
 
-**Data Source**: Finnhub API
-**Table**: `stocks_ai.stocks_news_data.stock_news_bronze_layer`
+2. Silver Layer – Cleansing & Standardization
 
-**Key Features:**
-- **News Aggregation**: Company news summaries with timestamps
-- **Rate Limiting**: Built-in API rate limiting (1 sec between requests)
-- **Date-based Incremental Loading**: Initial load (5 days) vs incremental
-- **Content Filtering**: Only articles with summary and datetime fields
+Combined Processing (combined_silver_layer_historical+news)
 
-### Silver Layer - Data Cleansing & Standardization
+Standardized date formats (MM-dd-yyyy)
 
-#### Combined Silver Processing (`combined_silver_layer_historical+news`)
+Rounded price precision (3 decimals)
 
-**Historical Data Transformations:**
-- **Date Formatting**: Standardized to MM-dd-yyyy format
-- **Precision Control**: Price fields rounded to 3 decimal places
-- **Column Standardization**: Consistent naming conventions
-- **Data Validation**: Type casting and null handling
+Consistent column naming
 
-**Output Table**: `stocks_ai.stocks_history_data.stock_history_silver_layer`
+Null handling & type casting
 
-### Gold Layer - Business-Ready Analytics (`Stocks_ai_gold_layer`)
+3. Gold Layer – Business-Ready Analytics
 
-**Data Integration Strategy:**
-- **Multi-source Joining**: Combines historical, news, and reference data
-- **News Aggregation**: Groups multiple news articles per stock per day
-- **Company Enrichment**: Adds company names from reference table
-- **Institutional Data**: Includes holder information for comprehensive analysis
+Merges historical data, aggregated news, company metadata
 
-![image](https://github.com/user-attachments/assets/64b6ccb2-7dec-46aa-91b6-e89d7d0a43a5)
-![image](https://github.com/user-attachments/assets/227ca7bf-b538-4adb-81ed-2172b47d73ca)
+Adds institutional holder information
 
+Produces RAG-ready datasets
 
-**Output Tables:**
-- `stocks_ai.stocks_GOLD_LAYER.Stocks_news_historical_RAG` - Main analytics table
-- `stocks_ai.stocks_GOLD_LAYER.Stocks_holders_RAG` - Institutional holders data
-  
+Output Tables:
 
-### RAG Layer - AI-Powered Financial Analysis
+Stocks_news_historical_RAG → Main AI-ready dataset
 
-#### Current Implementation Features:
+Stocks_holders_RAG → Institutional holders analytics
 
-**Text Processing & Embeddings:**
-- **Text Concatenation**: Combines historical data, news, and holder information into contextual strings
-- **Chunking Strategy**: Uses CharacterTextSplitter (1024 tokens, 100 overlap)
-- **Embedding Model**: Google Generative AI embeddings (models/embedding-001)
-- **Vector Store**: FAISS for fast similarity search
+4. RAG Layer – AI Financial Analysis
 
+Combines historical data, news sentiment, and holder info into contextual text
 
-#### Sample Queries Supported:
-- "Give me a summary of how AAPL stock has performed in the past"
-- "What are the major institutional holders of Tesla?"
-- "Analyze the correlation between news sentiment and stock price movements"
-- "Which stocks showed the highest volatility in the last quarter?"
+Chunks text for embeddings
 
-##  Data Schema
+Stores in FAISS for fast similarity search
 
-### Bronze Layer Tables
+Supports natural language financial queries like:
 
-| Table | Schema | Description |
-|-------|--------|-------------|
-| **stock_history_bronze_layer** | | Raw OHLCV data |
-| | date (DateType) | Trading date |
-| | open, high, low, close (FloatType) | Price data |
-| | adj_close (FloatType) | Adjusted closing price |
-| | volume (IntegerType) | Trading volume |
-| | ticker (StringType) | Stock symbol |
-| **stock_news_bronze_layer** | | Raw news data |
-| | stock (StringType) | Stock ticker |
-| | summary (StringType) | News article summary |
-| | date (DateType) | Article date |
+"Summarize Apple’s past performance"
 
-### Gold Layer Tables
+"List Tesla’s major institutional holders"
 
-| Table | Key Features | Use Case |
-|-------|-------------|----------|
-| **Stocks_news_historical_RAG** | Combined OHLCV + aggregated news + company info | Primary RAG data source |
-| **Stocks_holders_RAG** | Institutional holders + company metadata | Ownership analysis |
+"Correlation between news sentiment & price movement"
 
+"Highest volatility stocks last quarter"
 
+Data Schema
 
-## 🔮 Future Enhancements
+Bronze Layer
 
-### Immediate Roadmap
--  **Enhanced RAG System**: Production-ready version with error handling
--  **Real-time Streaming**: Live market data integration
--  **Advanced Analytics**: Technical indicators and risk metrics
--  **ML Models**: Price prediction and volatility forecasting
+Column	Type	Description
+date	Date	Trading date
+open	Float	Opening price
+high	Float	High price
+low	Float	Low price
+close	Float	Closing price
+adj_close	Float	Adjusted close
+volume	Integer	Trading volume
+ticker	String	Stock symbol
 
-### Advanced Features
--  **Multi-modal RAG**: Charts and graphs in responses
--  **Conversation Memory**: Multi-turn dialogue support  
--  **Custom Financial Metrics**: Sharpe ratio, Beta, VaR calculations
-**Portfolio Analysis**: Multi-stock portfolio optimization
--  **Sentiment Analysis**: News sentiment scoring
--  **Options Data**: Volatility surface analysis
+Gold Layer
 
+Table	Description
+Stocks_news_historical_RAG	OHLCV + aggregated news + company info
+Stocks_holders_RAG	Institutional holders data
+Planned Enhancements
 
-## 📈 Use Cases
+Short Term
 
-1. **Financial Research**: "Analyze the correlation between oil prices and energy stocks"
-2. **Risk Management**: "What are the risk factors for my tech stock portfolio?"
-3. **Investment Decisions**: "Should I buy Tesla based on recent news and performance?"
-4. **Market Analysis**: "How did the Fed announcement affect bank stocks?"
-5. **Portfolio Optimization**: "Suggest a balanced portfolio based on current market conditions"
+Production-grade RAG system with better error handling
 
-Below is a more polished and descriptive section of your README to highlight the Streamlit UI, how it works, and the future integration plans.
+Real-time streaming market data
 
---------------------------------------------------------------------------------
+Advanced risk & technical indicators
 
-## User Interface (UI)
+Predictive ML models (price & volatility)
 
-This application’s user interface (UI) is built with [Streamlit](https://streamlit.io/). It offers a simple yet powerful way to interact with the model without needing any specialized local setup.
+Long Term
 
-### Future Integration
+Multi-modal RAG (charts/graphs in responses)
 
-• The current version of the UI works independently for demonstration purposes.  
-• In the near future, the app will be integrated with [Databricks](https://www.databricks.com/) to fetch and process live data, providing even more dynamic and robust functionality.
+Conversation memory for multi-turn queries
 
+Portfolio optimization tools
 
+Sentiment analysis for market news
 
-3. **Interact with the Model**:  
-   Enter your prompt in the chatbox on the UI. You’ll see the model’s response displayed underneath.
+Options market volatility surface analytics
 
+Example Use Cases
 
---------------------------------------------------------------------------------
+Financial Research – "Analyze correlation between oil prices & energy sector stocks"
+
+Risk Management – "Identify risks in my tech portfolio"
+
+Investment Decision Support – "Should I buy Tesla given recent news?"
+
+Market Impact Analysis – "Effect of Fed rate changes on bank stocks"
+
+Portfolio Strategy – "Create a balanced portfolio for current conditions"
+
+User Interface Details
+
+Built with Streamlit for simplicity and speed
+
+Works standalone for demo purposes
+
+Future versions will connect directly to Databricks for live, dynamic querying
