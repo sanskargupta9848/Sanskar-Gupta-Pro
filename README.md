@@ -2,7 +2,6 @@
 # Stock Market AI – Core Data Engineering & RAG Pipeline  
 **An Intelligent Financial Data Platform with Medallion Architecture & RAG in Databricks**
 
----
 
 ## Overview
 
@@ -16,21 +15,6 @@ It ingests and processes:
 
 All data flows through **refined transformation layers**, producing **business-ready datasets**.  
 A **Streamlit UI chatbot** enables **natural language** financial queries.
-
----
-
-## UI Preview
-
-| Stage | Screenshot |
-|-------|------------|
-| Initial view | ![UI Empty](https://github.com/user-attachments/assets/caed6ed4-d8bc-4c16-8815-f6f079506c0f) |
-| Chat overlay after prompt | ![Chat Overlay](https://github.com/user-attachments/assets/f9a52fe8-4588-425c-87c0-ed226f0ef211) |
-| Prompt only (awaiting response) | ![Prompt Only](https://github.com/user-attachments/assets/90323d38-c883-4dad-800d-b6a256a8375e) |
-| Prompt + model response | ![Prompt Response](https://github.com/user-attachments/assets/39a0ba32-fbb0-43ff-8964-649efc81bec8) |
-
-> ℹ The current Streamlit app includes a **local/demo mode** with sample data and a mock LLM response if no API keys are provided. When keys are present, it uses **Google Generative AI Embeddings** and **Gemini**.
-
----
 
 ## Getting Started
 
@@ -51,7 +35,6 @@ streamlit run app.py
 
 Opens locally in your browser with an interactive chat UI.
 
----
 
 ## Architecture
 
@@ -62,7 +45,6 @@ yfinance    Raw Data    Cleaned Data   Business    FAISS    Gemini AI   Chatbot 
 Finnhub     Storage     Validation     Ready       Vector   LangChain   
 ```
 
----
 
 ## ⚙Tech Stack
 
@@ -82,7 +64,6 @@ Finnhub     Storage     Validation     Ready       Vector   LangChain
 - **Chunking:** RecursiveCharacterTextSplitter (optimized token size)
 - **Custom Metrics:** Financial performance & risk indicators
 
----
 
 ## Repository Structure
 
@@ -101,7 +82,6 @@ docs/                    → Documentation
 data/                    → Sample CSVs for demo/local mode
 ```
 
----
 
 ## Data Pipeline
 
@@ -131,7 +111,6 @@ data/                    → Sample CSVs for demo/local mode
   - “Correlation between news sentiment & stock movement”
   - “Most volatile stocks last quarter”
 
----
 
 ## Data Schema
 
@@ -150,7 +129,6 @@ data/                    → Sample CSVs for demo/local mode
 | `Stocks_news_historical_RAG` | OHLCV + aggregated news + company info |
 | `Stocks_holders_RAG` | Institutional holders data |
 
----
 
 ## Planned Enhancements
 
@@ -167,7 +145,6 @@ data/                    → Sample CSVs for demo/local mode
 - Sentiment scoring for news feeds  
 - Options volatility surface analytics  
 
----
 
 ## Example Use Cases
 - **Market Research:** “Impact of oil prices on energy sector stocks”  
@@ -176,7 +153,6 @@ data/                    → Sample CSVs for demo/local mode
 - **Event Analysis:** “Effect of Fed announcements on banking stocks”  
 - **Portfolio Strategy:** “Suggest a balanced portfolio for current market conditions”  
 
----
 
 ## Configuration
 
@@ -189,7 +165,6 @@ FINNHUB_API_KEY=your_finnhub_key
 
 If keys are not provided, the app runs in **local/demo mode** using sample data and a mock LLM.
 
----
 
 ## Tests
 
