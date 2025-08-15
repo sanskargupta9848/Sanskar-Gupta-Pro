@@ -1,25 +1,25 @@
 
-# 📊 Stock Market AI – Core Data Engineering & RAG Pipeline  
+# Stock Market AI – Core Data Engineering & RAG Pipeline  
 **An Intelligent Financial Data Platform with Medallion Architecture & RAG in Databricks**
 
 ---
 
-## 🧠 Overview
+## Overview
 
 This project implements a **complete stock market intelligence pipeline** using the **Medallion Architecture** (Bronze → Silver → Gold) in **Databricks**, enhanced with **Retrieval-Augmented Generation (RAG)** for AI-driven financial insights.  
 
 It ingests and processes:  
-- 📈 **Historical stock prices** (OHLCV)  
-- 📰 **Real-time & historical market news**  
-- 📊 **Market trends & analytics**  
-- 🏢 **Institutional holders data**  
+- **Historical stock prices** (OHLCV)  
+- **Real-time & historical market news**  
+- **Market trends & analytics**  
+- **Institutional holders data**  
 
 All data flows through **refined transformation layers**, producing **business-ready datasets**.  
 A **Streamlit UI chatbot** enables **natural language** financial queries.
 
 ---
 
-## 🖥 UI Preview
+## UI Preview
 
 | Stage | Screenshot |
 |-------|------------|
@@ -28,24 +28,24 @@ A **Streamlit UI chatbot** enables **natural language** financial queries.
 | Prompt only (awaiting response) | ![Prompt Only](https://github.com/user-attachments/assets/90323d38-c883-4dad-800d-b6a256a8375e) |
 | Prompt + model response | ![Prompt Response](https://github.com/user-attachments/assets/39a0ba32-fbb0-43ff-8964-649efc81bec8) |
 
-> ℹ️ The current Streamlit app includes a **local/demo mode** with sample data and a mock LLM response if no API keys are provided. When keys are present, it uses **Google Generative AI Embeddings** and **Gemini**.
+> ℹ The current Streamlit app includes a **local/demo mode** with sample data and a mock LLM response if no API keys are provided. When keys are present, it uses **Google Generative AI Embeddings** and **Gemini**.
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ```bash
-# 1️⃣ Create & activate a virtual environment (recommended)
+# 1️ Create & activate a virtual environment (recommended)
 python -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 
-# 2️⃣ Install dependencies
+# 2️ Install dependencies
 pip install -r requirements.txt
 
-# 3️⃣ (Optional) Configure API keys
+# 3️ (Optional) Configure API keys
 cp .env.sample .env   # then edit .env
 
-# 4️⃣ Run the Streamlit app
+# 4 Run the Streamlit app
 streamlit run app.py
 ```
 
@@ -53,7 +53,7 @@ Opens locally in your browser with an interactive chat UI.
 
 ---
 
-## 🏗 Architecture
+## Architecture
 
 ```
 Stock APIs → Bronze Layer → Silver Layer → Gold Layer → Vector DB → RAG → Streamlit Chatbot
@@ -64,9 +64,9 @@ Finnhub     Storage     Validation     Ready       Vector   LangChain
 
 ---
 
-## ⚙️ Tech Stack
+## ⚙Tech Stack
 
-### 📂 Data Engineering
+### Data Engineering
 - **Platform:** Databricks (Apache Spark)
 - **Data Lake:** Delta Lake (ACID transactions)
 - **Catalog:** Unity Catalog
@@ -74,7 +74,7 @@ Finnhub     Storage     Validation     Ready       Vector   LangChain
 - **Processing:** PySpark, Python
 - **Orchestration/Scheduling:** Databricks Workflows
 
-### 🤖 RAG Components
+### RAG Components
 - **Embeddings:** Google Generative AI (`models/embedding-001`)
 - **Vector DB:** FAISS
 - **LLM:** Google Gemini 2.0 Flash
@@ -84,7 +84,7 @@ Finnhub     Storage     Validation     Ready       Vector   LangChain
 
 ---
 
-## 📂 Repository Structure
+## Repository Structure
 
 ```
 notebooks/
@@ -103,26 +103,26 @@ data/                    → Sample CSVs for demo/local mode
 
 ---
 
-## 🔄 Data Pipeline
+## Data Pipeline
 
-### 🥉 Bronze Layer – Raw Ingestion
+### Bronze Layer – Raw Ingestion
 - **Historical Stocks:** Incremental loading, batch multi-ticker fetch, schema flattening  
 - **News Data:** API rate-limited aggregation, incremental updates, summary filtering  
 
-### 🥈 Silver Layer – Cleansing & Standardization
+### Silver Layer – Cleansing & Standardization
 - Standardized date formats  
 - Rounded price precision  
 - Consistent column naming  
 - Null handling & type casting  
 
-### 🥇 Gold Layer – Business-Ready Analytics
+### Gold Layer – Business-Ready Analytics
 - Merges OHLCV, aggregated news, company metadata  
 - Enriched with institutional holders data  
 - Produces **RAG-ready datasets**:  
   - `Stocks_news_historical_RAG`
   - `Stocks_holders_RAG`
 
-### 🤖 RAG Layer – AI Querying
+### RAG Layer – AI Querying
 - Combines historical, sentiment, and holder data into embeddings  
 - Uses FAISS for retrieval  
 - Example queries:
@@ -133,7 +133,7 @@ data/                    → Sample CSVs for demo/local mode
 
 ---
 
-## 📜 Data Schema
+## Data Schema
 
 **Bronze Layer**  
 | Column      | Type   | Description |
@@ -152,7 +152,7 @@ data/                    → Sample CSVs for demo/local mode
 
 ---
 
-## 🛠 Planned Enhancements
+## Planned Enhancements
 
 **Near-Term**
 - Production-grade RAG with robust error handling  
@@ -169,7 +169,7 @@ data/                    → Sample CSVs for demo/local mode
 
 ---
 
-## 💡 Example Use Cases
+## Example Use Cases
 - **Market Research:** “Impact of oil prices on energy sector stocks”  
 - **Risk Analysis:** “Key risks in my tech portfolio”  
 - **Decision Support:** “Should I buy Tesla given recent news?”  
@@ -178,7 +178,7 @@ data/                    → Sample CSVs for demo/local mode
 
 ---
 
-## 🔐 Configuration
+## Configuration
 
 Create a `.env` in the repo root (or set env vars) for API access:
 
@@ -191,7 +191,7 @@ If keys are not provided, the app runs in **local/demo mode** using sample data 
 
 ---
 
-## 🧪 Tests
+## Tests
 
 Run a basic smoke test:
 
@@ -201,6 +201,6 @@ pytest -q
 
 ---
 
-## 📜 License
+## License
 
 This project is released under the **MIT License**.
